@@ -18,7 +18,7 @@ conda activate distilled-llm-hallucinate
 ### 1. Evaluate hallucination on the generative QA dataset
 You can run the following command to evaluate distilled student models (specified in [models.json](models.json)) on the hallucination benchmarks `hotpot_qa` and `truthful_qa`:
 ```bash
--d "truthful_qa" -sub "generation" -ms "./models.json" -db -dm "./data_map.py" -bs 32 -o "./eval_results"
+python main_qa.py -d "truthful_qa" -sub "generation" -ms "./models.json" -db -dm "./data_map.py" -bs 32 -o "./eval_results"
 ```
 where:
 - `-d`     :        The path to the dataset used to evaluate the student models: `hotpot_qa` or `truthful_qa`
