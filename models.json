@@ -1,5 +1,21 @@
 [
     {
+        "language_model": "Nicolas-BZRD/pythia-1b-deduped_pubmed_qa_Llama-2-7b-chat-hf_text_teacher",
+        "tokenizer": "EleutherAI/pythia-1b-deduped"
+    },
+    {
+        "language_model": "Nicolas-BZRD/bloomz-560m_pubmed_qa_Llama-2-7b-chat-hf_text_teacher",
+        "tokenizer": "bigscience/bloomz-560m"
+    },
+    {
+        "language_model": "Nicolas-BZRD/mt0-base_pubmed_qa_Llama-2-7b-chat-hf_text_teacher",
+        "tokenizer": "bigscience/mt0-base"
+    },
+    {
+        "language_model": "Nicolas-BZRD/opt-350m_pubmed_qa_Llama-2-7b-chat-hf_text_teacher",
+        "tokenizer": "facebook/opt-350m"
+    },
+    {
         "language_model": "Nicolas-BZRD/pythia-1b-deduped_pubmed_qa_Llama-2-7b-chat-hf_uld_loss",
         "tokenizer": "EleutherAI/pythia-1b-deduped"
     },

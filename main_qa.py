@@ -97,7 +97,10 @@ def main(args):
         
         # Specify the path to the JSON file where you want to save the results
         model_name = language_model.split("/")[1].split("-")[0]
-        results_file_path = args.output + f'/evalscript_{args.dataset}_{model_name}.json'
+        if "uld_loss" in language_model:
+            results_file_path = args.output + f'/evalscript_{args.dataset}_{model_name}_uld_loss.json'
+        elif "text_teacher" in language_model:
+            results_file_path = args.output + f'/evalscript_{args.dataset}_{model_name}_text_teacher.json'
         if not os.path.exists(args.output):
             os.makedirs(args.output)
         

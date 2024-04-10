@@ -1,8 +1,8 @@
 {
     "bertscore": {
-        "precision": 0.8326309442520141,
-        "recall": 0.8446765840053558,
-        "f1": 0.8370280563831329,
+        "precision": 0.8326309978961944,
+        "recall": 0.8446766197681427,
+        "f1": 0.8370281159877777,
         "hashcode": "roberta-large_L17_no-idf_version=0.3.12(hug_trans=4.39.2)"
     },
     "rouge": {
