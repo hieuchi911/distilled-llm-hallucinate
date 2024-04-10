@@ -127,3 +127,7 @@ dependencies:
       - tzdata==2024.1
       - xxhash==3.4.1
       - yarl==1.9.4
+      - evaluate==0.4.1
+      - bert-score==0.3.13
+      - sacrebleu==2.4.1
+      - rouge-score==0.1.2
