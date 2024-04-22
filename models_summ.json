@@ -1,0 +1,34 @@
+[
+    {
+        "language_model": "Nicolas-BZRD/pythia-410m-deduped_dialogsum_Mistral-7B-Instruct-v0.2_text_teacher",
+        "tokenizer": "EleutherAI/pythia-1b-deduped"
+    },
+    {
+        "language_model": "Nicolas-BZRD/bloomz-560m_dialogsum_Mistral-7B-Instruct-v0.2_text_teacher",
+        "tokenizer": "bigscience/bloomz-560m"
+    },
+    {
+        "language_model": "Nicolas-BZRD/mt0-base_dialogsum_Mistral-7B-Instruct-v0.2_text_teacher",
+        "tokenizer": "bigscience/mt0-base"
+    },
+    {
+        "language_model": "Nicolas-BZRD/opt-350m_dialogsum_Mistral-7B-Instruct-v0.2_text_teacher",
+        "tokenizer": "facebook/opt-350m"
+    },
+    {
+        "language_model": "Nicolas-BZRD/pythia-410m-deduped_dialogsum_Mistral-7B-Instruct-v0.2_uld_loss",
+        "tokenizer": "EleutherAI/pythia-1b-deduped"
+    },
+    {
+        "language_model": "Nicolas-BZRD/bloomz-560m_dialogsum_Mistral-7B-Instruct-v0.2_uld_loss",
+        "tokenizer": "bigscience/bloomz-560m"
+    },
+    {
+        "language_model": "Nicolas-BZRD/mt0-base_dialogsum_Mistral-7B-Instruct-v0.2_uld_loss",
+        "tokenizer": "bigscience/mt0-base"
+    },
+    {
+        "language_model": "Nicolas-BZRD/opt-350m_dialogsum_Mistral-7B-Instruct-v0.2_uld_loss",
+        "tokenizer": "facebook/opt-350m"
+    }
+]
