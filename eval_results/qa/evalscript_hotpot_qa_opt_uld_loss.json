@@ -1,0 +1,23 @@
+{
+    "bertscore": {
+        "precision": 0.780847564683743,
+        "recall": 0.8256845638930677,
+        "f1": 0.8020340547297631,
+        "hashcode": "roberta-large_L17_no-idf_version=0.3.12(hug_trans=4.39.2)"
+    },
+    "rouge": {
+        "rouge1": 0.04609648195012038,
+        "rouge2": 0.01736475910186034,
+        "rougeL": 0.04484019526665131,
+        "rougeLsum": 0.04476517618237826
+    },
+    "chrf": {
+        "score": 12.199542381065367,
+        "char_order": 6,
+        "word_order": 0,
+        "beta": 2
+    },
+    "meteor": {
+        "meteor": 0.09309215256839726
+    }
+}
