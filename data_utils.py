@@ -3,20 +3,51 @@ from pathlib import Path
 from typing import Sequence
 
 from transformers import PreTrainedTokenizer
+import datasets
+import torch
 
 import numpy as np
 
-DATA_PATHS = {
-    "truthful_qa": "truthful_qa",
-    "hotpot_qa": "hotpot_qa",
-    "cnn_dm": "cnn_dailymail",
-    "qmsum": "pszemraj/qmsum-cleaned"
-}
+def prepare_dataset(dname, hf_path, subset, data_mapper_path, split="validation", debug=False):
+    dataset = datasets.load_dataset(hf_path, subset, split=split)
+    # Apply the function to each sample using map
+    map_fn = getattr(load_module_from_py_file(data_mapper_path), f"add_prefix_{dname}")
+    dataset = dataset.map(map_fn, remove_columns=dataset.column_names)
+    true_answers = dataset["label"]
 
-PROMPT_KEYWORDS = {
-    "qa": "Answer:",
-    "summ": "Summary:"
-}
+    if debug:
+        dataset = dataset.select(range(100))
+        true_answers = true_answers[:100]
+    return dataset, true_answers
+
+def prepare_dataloader(dataset, max_length, b_size, tokenizer, collate_fn):
+    sampler = torch.utils.data.distributed.DistributedSampler(dataset)
+    
+    dataloader = torch.utils.data.DataLoader(dataset, batch_size=b_size, sampler=sampler,
+                    collate_fn=lambda x: collate_fn(batch=x, tokenizer=tokenizer, model_max_length=max_length))
+    return dataloader
+
+def collate_fn(batch, tokenizer, model_max_length):
+    """
+    Collate to max length of the batch, if max length is greater than allowed model max length, pad to model max length
+    """
+    max_len = max([len(tokenizer.encode(x["input_seq"])) for x in batch])
+    max_len = min(max_len, model_max_length)
+    inputs = tokenizer([b["input_seq"] for b in batch], padding=True, truncation=True, max_length=max_len, return_tensors='pt')
+    
+    return inputs, [b["label"] for b in batch]
+
+
+def collate_fn_ddp(batch, tokenizer, model_max_length):
+    """
+    Collate to max length of the batch, if max length is greater than allowed model max length, pad to model max length
+    """
+    max_len = max([len(tokenizer.encode(x["input_seq"])) for x in batch])
+    max_len = min(max_len, model_max_length)
+    inputs = tokenizer([b["input_seq"] for b in batch], padding=True, truncation=True, max_length=max_len, return_tensors='pt')
+    # labels = tokenizer([b["label"] for b in batch], padding=True, truncation=True, return_tensors='pt')
+    
+    return inputs, [b["label"] for b in batch], [b["input_seq"] for b in batch]
 
 def load_module_from_py_file(py_file: str) -> object:
     """
@@ -42,16 +73,6 @@ def calculate_avg_tokens(text_list: Sequence[str], tokenizer: PreTrainedTokenize
     avg_tokens = total_tokens / len(text_list)
     max_tokens = max(max_lens)
     return int(avg_tokens) if avg else max_tokens
-
-def collate_fn(batch, tokenizer, model_max_length):
-    """
-    Collate to max length of the batch, if max length is greater than allowed model max length, pad to model max length
-    """
-    max_len = max([len(tokenizer.encode(x["input_seq"])) for x in batch])
-    max_len = min(max_len, model_max_length)
-    inputs = tokenizer([b["input_seq"] for b in batch], padding=True, truncation=True, max_length=max_len, return_tensors='pt')
-    
-    return inputs, [b["label"] for b in batch]
 
 def get_max_length(config):
     """

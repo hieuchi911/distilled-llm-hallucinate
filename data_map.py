@@ -1,3 +1,8 @@
+PROMPT_KEYWORDS = {
+    "qa": "Answer:",
+    "summ": "Summary:"
+}
+
 def add_prefix_truthful_qa(example):
     question = example["question"].strip()
     concatenated_input = f"Context: No context\nQuestion: {question}\nAnswer:"
