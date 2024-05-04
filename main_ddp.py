@@ -27,7 +27,7 @@ logger = logging.getLogger('evalscript')
 # def main(rank, world_size, args):
 def main(args):
     # Initialize the process group
-    os.environ['NCCL_DEBUG'] = 'INFO'
+    os.environ['NCCL_DEBUG'] = 'WARN'
     init_process_group(backend="nccl")
     rank = int(os.environ["LOCAL_RANK"])
     torch.cuda.set_device(rank)
